@@ -1,0 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file	stdboost.h
+/// @date	2014/07/30	
+/// @author	Masayuki
+/// @brief	プリコンパイルヘッダー
+///////////////////////////////////////////////////////////////////////////////
+
+#ifndef MSYK_STDBOOST_H_
+#define MSYK_STDBOOST_H_
+
+#include <boost/lexical_cast.hpp>
+#include <boost/foreach.hpp>
+
+#endif /* MSYK_STDBOOST_H_ */
