@@ -75,6 +75,18 @@ public:
 		}
 		return nRet;
 	}
+	/// メニュー項目に関する情報を取得します
+	/// @param lpmii		メニュー項目の情報
+	/// @param nItem		項目の位置または識別子
+	/// @param nPosOrCmd	MF_BYPOSITION / MF_BYCOMMAND
+	/// @throw mxWin32Exception
+	void getItemInfo(MENUITEMINFO *lpmii, UINT nItem, UINT nPosOrCmd = MF_BYCOMMAND) {
+		if (!::GetMenuItemInfo(*this, nItem,
+				(nPosOrCmd == MF_BYPOSITION) ? TRUE : FALSE, lpmii))
+		{
+			throw mxWin32Exception(_T("GetMenuItemInfo"));
+		}
+	}
 	/// サブメニューのハンドルを取得します
 	/// @param nPos	メニュー項目の位置
 	HMENU getSubMenu(int nPos) {
