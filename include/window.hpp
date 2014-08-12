@@ -132,6 +132,10 @@ public:
 		}
 		return rc;
 	}
+	/// 親ウィンドウまたはオーナーウィンドウのハンドルを返します
+	HWND getParent() const {
+		return ::GetParent(*this);
+	}
 	/// ウィンドウ領域の左上端と右下端の座標を取得します
 	/// @return ウィンドウ領域の座標
 	/// @throw mxWin32Exception
@@ -151,6 +155,12 @@ public:
 		if (!::MoveWindow(*this, pt.x, pt.y, sz.cx, sz.cy, bRepaint)) {
 			throw mxWin32Exception(_T("MoveWindow"));
 		}
+	}
+	/// 親ウィンドウを変更します
+	/// @param hWndNewParent 新しい親ウィンドウ
+	/// @return 直前の親ウィンドウのハンドル
+	HWND setParent(HWND hWndNewParent) {
+		return ::SetParent(*this, hWndNewParent);
 	}
 	/// タイトルバーのテキスト(コントロールの場合は、コントロールのテキスト)を変更します
 	/// @param lpString	タイトルまたはテキスト
