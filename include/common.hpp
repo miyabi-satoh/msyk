@@ -230,6 +230,29 @@ public:
 	////////////////////////////////////////////////////////////////////////////
 	/// @name 演算子
 	//@{
+	/// 位置の加算(offset)
+	mxRect operator+(const mxPoint &pt) const {
+		mxRect rc(*this);
+		::OffsetRect(&rc, pt.x, pt.y);
+		return rc;
+	}
+	/// 位置の減算(offset)
+	mxRect operator-(const mxPoint &pt) const {
+		mxRect rc(*this);
+		::OffsetRect(&rc, -pt.x, -pt.y);
+		return rc;
+	}
+	/// 位置の加算(offset)と代入
+	mxRect& operator+=(const mxPoint &pt) {
+		::OffsetRect(this, pt.x, pt.y);
+		return *this;
+	}
+	/// 位置の減算(offset)と代入
+	mxRect& operator-=(const mxPoint &pt) {
+		::OffsetRect(this, -pt.x, -pt.y);
+		return *this;
+	}
+
 	/// サイズの加算(inflate)
 	mxRect operator+(const mxSize &sz) const {
 		mxRect rc(*this);
@@ -252,6 +275,42 @@ public:
 		::InflateRect(this, -sz.cx, -sz.cy);
 		return *this;
 	}
+
+	template <class NUM>
+	mxRect operator*(const NUM &n) const {
+		mxRect rc(*this);
+		rc.left = static_cast<int>(1.0 * rc.left * n);
+		rc.top = static_cast<int>(1.0 * rc.top * n);
+		rc.right = static_cast<int>(1.0 * rc.right * n);
+		rc.bottom = static_cast<int>(1.0 * rc.bottom * n);
+		return rc;
+	}
+	template <class NUM>
+	mxRect& operator*=(const NUM &n) {
+		left = static_cast<int>(1.0 * left * n);
+		top = static_cast<int>(1.0 * top * n);
+		right = static_cast<int>(1.0 * right * n);
+		bottom = static_cast<int>(1.0 * bottom * n);
+		return *this;
+	}
+	template <class NUM>
+	mxRect operator/(const NUM &n) const {
+		mxRect rc(*this);
+		rc.left = static_cast<int>(1.0 * rc.left / n);
+		rc.top = static_cast<int>(1.0 * rc.top / n);
+		rc.right = static_cast<int>(1.0 * rc.right / n);
+		rc.bottom = static_cast<int>(1.0 * rc.bottom / n);
+		return rc;
+	}
+	template <class NUM>
+	mxRect& operator/=(const NUM &n) {
+		left = static_cast<int>(1.0 * left / n);
+		top = static_cast<int>(1.0 * top / n);
+		right = static_cast<int>(1.0 * right / n);
+		bottom = static_cast<int>(1.0 * bottom / n);
+		return *this;
+	}
+
 	//@}
 };
 

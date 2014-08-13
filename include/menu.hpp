@@ -84,6 +84,7 @@ public:
 		if (!::GetMenuItemInfo(*this, nItem,
 				(nPosOrCmd == MF_BYPOSITION) ? TRUE : FALSE, lpmii))
 		{
+			mxTrace(_T("nItem=") << nItem);
 			throw mxWin32Exception(_T("GetMenuItemInfo"));
 		}
 	}
@@ -103,6 +104,18 @@ public:
 				(nPosOrCmd == MF_BYPOSITION) ? TRUE : FALSE, lpmii))
 		{
 			throw mxWin32Exception(_T("InsertMenuItem"));
+		}
+	}
+	/// メニュー項目に関する情報を変更します
+	/// @param lpmii		メニュー項目の情報
+	/// @param nItem		項目の位置または識別子
+	/// @param nPosOrCmd	MF_BYPOSITION / MF_BYCOMMAND
+	/// @throw mxWin32Exception
+	void setItemInfo(MENUITEMINFO *lpmii, UINT nItem, UINT nPosOrCmd = MF_BYCOMMAND) {
+		if (!::SetMenuItemInfo(*this, nItem,
+				(nPosOrCmd == MF_BYPOSITION) ? TRUE : FALSE, lpmii))
+		{
+			throw mxWin32Exception(_T("GetMenuItemInfo"));
 		}
 	}
 private:
